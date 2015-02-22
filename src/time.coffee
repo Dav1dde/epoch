@@ -418,8 +418,8 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
       @_pushTick(@options.windowSize, newTime, true)
 
     # Outgoing ticks
-    unless @_ticks[0].x - (@w()/@pixelRatio) >= 0
-      @_ticks[0].exit = true
+    unless @_ticks[0]?.x - (@w()/@pixelRatio) >= 0
+      @_ticks[0]?.exit = true
 
   # Makes and pushes a new tick into the visualization.
   #
