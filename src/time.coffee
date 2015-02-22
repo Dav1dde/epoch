@@ -220,14 +220,8 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
 
   # @return [Object] The d3 left axis.
   leftAxis: ->
-    console.log('left')
-    ticks = @options.ticks.left?() ? @options.ticks.left
     axis = d3.svg.axis().scale(@ySvg()).orient('left')
       .tickFormat(@options.tickFormats.left)
-    #if ticks == 2
-    #  axis.tickValues @extent((d) -> d.y)
-    #else
-    #  axis.ticks(ticks)
     if @options.ticks.left?()
       domain = @_getDomain()
       axis.tickValues @options.ticks.left(domain[0], domain[1])
@@ -238,12 +232,13 @@ class Epoch.Time.Plot extends Epoch.Chart.Canvas
 
   # @return [Object] The d3 right axis.
   rightAxis: ->
-    extent = @extent((d) -> d.y)
-    ticks = @options.ticks.right
     axis = d3.svg.axis().scale(@ySvg()).orient('right')
       .tickFormat(@options.tickFormats.left)
-    if ticks == 2
-      axis.tickValues @extent((d) -> d.y)
+    if @options.ticks.left?()
+      domain = @_getDomain()
+      axis.tickValues @options.ticks.left(domain[0], domain[1])
+    else if ticks == 2
+      axis.tickValues @_getDomain()
     else
       axis.ticks(ticks)
 
